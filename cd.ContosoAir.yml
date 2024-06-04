@@ -7,8 +7,8 @@ trigger:
 - master
 resources:
  pipelines:
-  - pipeline: buildContosoAir # identifier for the resource used in pipeline resource variables
-    source: Student1-41323243.ContosoAir # name of the pipeline that produces the artifact
+  - pipeline: buildContosoAir
+    source: Student1-41323243.ContosoAir
     trigger:
      branches:
       include:
@@ -30,7 +30,7 @@ steps:
     azureResourceManagerConnection: 'Azure Connect'
     subscriptionId: 'd2b5d18f-f7da-4478-81c6-8ec7f0620d0b'
     action: 'Create Or Update Resource Group'
-    resourceGroupName: 'rg-lod'
+    resourceGroupName: '$(resourcegroup)'
     location: 'East US'
     templateLocation: 'Linked artifact'
     csmFile: '$(Pipeline.Workspace)/drop/Templates/azuredeploy.json'
@@ -44,7 +44,4 @@ steps:
     appType: 'webApp'
     WebAppName: '$(web_prefix)-$(web_site)-$(web_environment)'
     packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+
